@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MainHeader = () => {
   return (
-    <header className="flex justify-between p-4">
-      <a className="flex items-center gap-1">
+    <header className="flex justify-between">
+      <Link to="/" className="flex items-center gap-1 text-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -20,7 +21,7 @@ const MainHeader = () => {
         </svg>
 
         <span className="font-bold">airbnb</span>
-      </a>
+      </Link>
       <div className="flex gap-2 border border-gray-400 rounded-full items-center px-1">
         <div>Antwhere</div>
         <div className="border-l border-gray-400"></div>
