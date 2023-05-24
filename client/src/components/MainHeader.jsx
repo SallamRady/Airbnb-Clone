@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/User.context";
 
 const MainHeader = () => {
+  const { user } = useContext(UserContext);
   return (
     <header className="flex justify-between">
       <Link to="/" className="flex items-center gap-1 text-primary">
@@ -45,7 +47,10 @@ const MainHeader = () => {
           </svg>
         </button>
       </div>
-      <div className="flex gap-2 border rounded-full py-1 px-1 items-center overflow-hidden">
+      <Link
+        to={user ? "/account" : "/login"}
+        className="flex gap-2 border rounded-full py-1 px-1 items-center overflow-hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -74,7 +79,9 @@ const MainHeader = () => {
             />
           </svg>
         </div>
-      </div>
+        {!!user && <div className="font-bold">{user.name}</div>}
+        {!user && <div className="font-bold">Login</div>}
+      </Link>
     </header>
   );
 };
