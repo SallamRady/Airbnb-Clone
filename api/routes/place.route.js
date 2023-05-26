@@ -5,4 +5,8 @@ router.post("/upload-image-via-url", placeController.uploadPhotoByLink);
 
 router.post("/upload-images", placeController.uploadImages);
 
+router.post("/createPlace", placeController.createPlace);
+
+router.get("/userplacs", placeController.userPlaces);
+
 module.exports = router;

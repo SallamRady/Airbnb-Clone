@@ -65,6 +65,7 @@ const ImageUploader = ({ addedPhotos, setAddedPhotos }) => {
           addedPhotos.map((imgSrc) => {
             return (
               <Image
+                key={imgSrc}
                 className="h-32 rounded-2xl w-full object-cover"
                 src={imgSrc}
                 alt=""

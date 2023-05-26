@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Perks } from "./Perks";
 import ImageUploader from "./ImageUploader";
+import axios from "axios";
+import { UserContext } from "../../context/User.context";
+import { Navigate } from "react-router-dom";
 
 const AddPlace = () => {
   // Declaration of Variables
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
@@ -29,9 +33,35 @@ const AddPlace = () => {
       </>
     );
   }
+  function addNewPlace(e) {
+    e.preventDefault();
+    let body = {
+      title,
+      address,
+      photos: addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+      price,
+      owner: user._id,
+    };
+
+    axios
+      .post("/createPlace", body)
+      .then((response) => console.log("response :", response))
+      .catch((err) => console.log("error demo :", err));
+  }
+  if (!localStorage.getItem("user")) return <Navigate to="/login" />;
+
   return (
     <div>
-      <form>
+      <h3 className="text-center text-primary mb-8 text-3xl font-bold">
+        Add New Place
+      </h3>
+      <form onSubmit={addNewPlace}>
         {preInput(
           "Title",
           "Title for your place. should be short and catchy as in advertisement"
@@ -50,7 +80,10 @@ const AddPlace = () => {
           placeholder="address"
         />
         {preInput("Photos", "more = better")}
-        <ImageUploader addedPhotos={addedPhotos} setAddedPhotos={setAddedPhotos} />
+        <ImageUploader
+          addedPhotos={addedPhotos}
+          setAddedPhotos={setAddedPhotos}
+        />
         {preInput("Description", "description of the place")}
         <textarea
           value={description}
